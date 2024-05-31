@@ -1,0 +1,250 @@
+https://www.debian.org/doc/manuals/maint-guide/index.zh-cn.html    中文文档内容很详细
+aptitude show package 或者 dpkg -s package 来检查一下是否装了相应的package
+
+
+https://www.cnblogs.com/ditvelo/p/16662910.html
+下面是 尝试 https://www.douban.com/note/369020689/?_i=6870576TPJx67Q  
+
+sudo apt-get install dh-make
+step 1: 创建目录名字  hello-1.0   目录名字必须是产品名字-版本号  中间是连字符  不能是下划线    
+  
+step2:  创建一个简单的Makefile     --这个也可以放在后面的rules里面来实现--尝试修改
+
+hello: hello.c
+    gcc -o hello hello.c      前面必须是tab不能是空格
+
+
+step3:  上游代码包压缩成tar.gz格式 
+cd ..   退到上一级目录
+xli3@pek-xli3-cn-l1:~$ tar zcvf hello_1.0.tar.gz hello-1.0     目录压缩为tar.gz格式 ---注意 必须是下划线 
+
+step4: 制作源码包--- 自动生成很多配置文件
+cd hello-1.0    进到代码目录
+xli3@pek-xli3-cn-l1:~/hello-1.0$ dh_make -e xiaozhan.li.cn@windriver.com -f ../hello_1.0.tar.gz
+/usr/bin/dh_make:10: DeprecationWarning: 'nis' is deprecated and slated for removal in Python 3.13
+  import nis
+Type of package: (single, indep, library, python)
+[s/i/l/p]?                                               -----我选择s  
+Maintainer Name     : unknown
+Email-Address       : xiaozhan.li.cn@windriver.com
+Date                : Mon, 27 May 2024 20:13:55 +0800
+Package Name        : hello
+Version             : 1.0
+License             : blank
+Package Type        : single
+Are the details correct? [Y/n/q]                           ------y
+Please respond with "yes", "no" or "quit" (or "y", "n" or "q")
+Currently there is not top level Makefile. This may require additional tuning
+Done. Please edit the files in the debian/ subdirectory now. ---------------根据需要修改
+
+
+xli3@pek-xli3-cn-l1:~/hello-1.0$ ls      查看多了一个debian目录
+debian   hello.c
+
+xli3@pek-xli3-cn-l1:~/hello-1.0/debian$ ls -al    查看debian下面的内容
+total 104
+drwxr-xr-x 4 xli3 xli3  4096 May 27 20:14 .
+drwxr-xr-x 3 xli3 xli3  4096 May 27 20:14 ..
+-rw-r--r-- 1 xli3 xli3   194 May 27 20:14 changelog
+-rw-r--r-- 1 xli3 xli3   524 May 27 20:14 control
+-rw-r--r-- 1 xli3 xli3  1912 May 27 20:14 copyright
+-rw-r--r-- 1 xli3 xli3   126 May 27 20:14 hello.cron.d.ex
+-rw-r--r-- 1 xli3 xli3   493 May 27 20:14 hello.doc-base.ex
+-rw-r--r-- 1 xli3 xli3    28 May 27 20:14 hello-docs.docs
+-rw-r--r-- 1 xli3 xli3  1626 May 27 20:14 manpage.1.ex
+-rw-r--r-- 1 xli3 xli3  3770 May 27 20:14 manpage.md.ex
+-rw-r--r-- 1 xli3 xli3  4651 May 27 20:14 manpage.sgml.ex
+-rw-r--r-- 1 xli3 xli3 11009 May 27 20:14 manpage.xml.ex
+-rw-r--r-- 1 xli3 xli3   958 May 27 20:14 postinst.ex
+-rw-r--r-- 1 xli3 xli3   931 May 27 20:14 postrm.ex
+-rw-r--r-- 1 xli3 xli3   691 May 27 20:14 preinst.ex
+-rw-r--r-- 1 xli3 xli3   878 May 27 20:14 prerm.ex
+-rw-r--r-- 1 xli3 xli3   180 May 27 20:14 README.Debian
+-rw-r--r-- 1 xli3 xli3   265 May 27 20:14 README.source
+-rwxr-xr-x 1 xli3 xli3   690 May 27 20:14 rules
+-rw-r--r-- 1 xli3 xli3   538 May 27 20:14 salsa-ci.yml.ex
+drwxr-xr-x 2 xli3 xli3  4096 May 27 20:14 source
+drwxr-xr-x 2 xli3 xli3  4096 May 27 20:14 upstream
+-rw-r--r-- 1 xli3 xli3  1186 May 27 20:14 watch.ex
+
+查看 control的内容---已经自动写进入了
+
+
+step 5: 在debian目录下新创建一个install文件---里面写入  hello  usr/bin
+表示这个包会自动装到/usr/bin--- 这样就可以在系统环境变量直接执行
+
+
+step 6: 开始打包---cd hello-1.0目录  --然后在hello-1.0的上一级目录会生产打包文件 
+xli3@pek-xli3-cn-l1:~/hello-1.0$ dpkg-buildpackage        ------------执行打包命令    ---或者 用 debuild -uc -us -tc -b
+dpkg-buildpackage: info: source package hello
+dpkg-buildpackage: info: source version 1.0-1
+dpkg-buildpackage: info: source distribution UNRELEASED
+dpkg-buildpackage: info: source changed by unknown <xiaozhan.li.cn@windriver.com>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ debian/rules clean
+dh clean
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building hello using existing ./hello_1.0.orig.tar.gz
+dpkg-source: info: building hello in hello_1.0-1.debian.tar.xz
+dpkg-source: info: building hello in hello_1.0-1.dsc
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_auto_install --destdir=debian/hello/
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_dwz -a
+   dh_strip -a
+   dh_makeshlibs -a
+   dh_shlibdeps -a
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package hello: substitution variable ${shlibs:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'hello' in '../hello_1.0-1_amd64.deb'.
+ dpkg-genbuildinfo -O../hello_1.0-1_amd64.buildinfo
+ dpkg-genchanges -O../hello_1.0-1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload (original source is included)
+
+检查deb包的内容---- dpkg -x hello_1.0-1_amd64.deb tmp   
+tree tmp查看应该显示如下：
+xli3@pek-xli3-cn-l1:~/debian_hello$ tree tmp/
+tmp/
+└── usr
+    ├── bin
+    │   └── hello
+    └── share
+        ├── doc
+        │   └── hello
+        │       ├── changelog.Debian.gz
+        │       ├── copyright
+        │       └── README.Debian
+        └── doc-base
+            └── hello.hello
+
+7 directories, 5 files
+
+step 7: 安装测试制作好的deb二进制包 ---测试完记得删除
+sudo dpkg -i hello_1.0-1_amd64.deb
+xli3@pek-xli3-cn-l1:~/debian_hello$ sudo dpkg -i hello_1.0-1_amd64.deb
+[sudo] password for xli3:
+Selecting previously unselected package hello.
+(Reading database ... 35531 files and directories currently installed.)
+Preparing to unpack hello_1.0-1_amd64.deb ...
+Unpacking hello (1.0-1) ...
+Setting up hello (1.0-1) ...
+
+dpkg -l | grep hello    ------
+出现两个ii 表示安装成功
+
+xli3@pek-xli3-cn-l1:~/debian_hello$ whereis hello   -----链接到了/usr/bin下面的hello可执行文件  ---至此成功
+hello: /usr/bin/hello
+xli3@pek-xli3-cn-l1:~/debian_hello$ hello
+hello world!
+
+xli3@pek-xli3-cn-l1:~/debian_hello$ dpkg -l | grep hello
+ii  hello                            1.0-1                          amd64        Hello World Xiaozhan Li
+
+xli3@pek-xli3-cn-l1:~/debian_hello$ dpkg -s hello    ---查看安装
+Package: hello
+Status: install ok installed
+Priority: optional
+Section: unknown
+Installed-Size: 12
+Maintainer: unknown <xiaozhan.li.cn@windriver.com>
+Architecture: amd64
+Version: 1.0-1
+Description: Hello World Xiaozhan Li
+ This is my first process to make deb source package!
+Homepage: <insert the upstream URL, if relevant>
+
+step 8: 卸载安装包
+xli3@pek-xli3-cn-l1:~/debian_hello$ sudo dpkg -P hello
+[sudo] password for xli3:
+(Reading database ... 35536 files and directories currently installed.)
+Removing hello (1.0-1) ...
+
+
+================================================================================
+
+从源代码制作deb包  ----了解基本概念
+https://blog.csdn.net/weixin_30716725/article/details/99596647?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-99596647-blog-131609720.235^v43^pc_blog_bottom_relevance_base3&spm=1001.2101.3001.4242.2&utm_relevant_index=4
+
+https://www.jianshu.com/p/eea57d53abe6
+
+三个最核心的概念为：
+
+上游原始代码包（upstream tarball）:
+通常，人们为上游开发者（通常为第三方）编写的软件打包。
+上游开发者会使用源代码归档软件或原始代码包的方式发放他们的软件。
+原始代码包一般是上游制作的 .tar.gz 或 .tgz 文件，它也可能被压缩成 .tar.bz2，.tb2 或 .tar.xz 格式。原始代码包就是 Debian 构建包时使用的原材料。
+
+源码包：
+当您拥有了上游制作的原始代码包，下一步就可以制作 Debian 源码包了。
+
+二进制包：
+从源码包您可以构建 Debian 二进制包，它才是是实际上会被安装的包。
+
+作者：伊諾奇
+链接：https://www.jianshu.com/p/eea57d53abe6
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+==================================================================
+https://worktile.com/kb/ask/450888.html
+dh_make是一个用于生成Debian软件包的工具。它能够自动生成一些必要的文件和目录结构，并帮助开发者更轻松地为Debian系统打包软件。
+
+安装dh_make on my WSL debian--- sudo apt-get install dh-make
+cd debian_hello
+dh_make -s -y
+
+下面是使用dh_make命令来安装和使用的详细步骤：
+
+1. 安装dh_make命令。在终端中输入以下命令来安装dh_make：
+
+“`
+sudo apt-get install dh-make
+“`
+
+2. 创建一个工作目录。在终端中进入你的工作目录，并执行以下命令来创建一个新的Debian软件包：
+
+“`
+dh_make -f <软件包.tar.gz>
+“`
+
+`<软件包.tar.gz>`是你要打包的软件包的文件名。当你运行这条命令时，dh_make会询问你打包软件的类型，选择其中的一个选项（如：单个二进制文件、库、Perl模块等），然后按照提示完成安装过程。
+
+3. 编辑控制文件。在使用dh_make命令完成后，你需要编辑生成的控制文件`debian/control`，以填写软件包的详细信息，例如软件包的名称、版本、作者、描述等。你可以使用任何文本编辑器打开该文件进行编辑。
+
+4. 添加其他必要的文件和脚本。根据软件包的需要，你可能还需要在工作目录中添加其他文件和脚本。例如，你可以将可执行文件放在`debian/bin`目录下，将配置文件放在`debian/etc`目录下。
+
+5. 构建软件包。在终端中进入工作目录，执行以下命令来构建软件包：
+
+“`
+dpkg-buildpackage -us -uc
+“`
+
+这条命令将会根据控制文件和其他必要的文件来构建软件包。`-us`选项表示不签名软件包的源代码，`-uc`选项表示不签名软件包的源代码。构建完成后，你会在上层目录看到生成的`.deb`软件包文件。
+
+6. 安装和测试软件包。使用以下命令来安装软件包：
+
+“`
+sudo dpkg -i <软件包.deb>
+“`
+
+`<软件包.deb>`是你构建的Debian软件包的文件名。安装完成后，你就可以在系统中使用该软件包了。
