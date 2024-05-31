@@ -1,0 +1,12 @@
+Package: hello-dbgsym
+Source: hello
+Version: 1.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: unknown <xiaozhan.li.cn@windriver.com>
+Installed-Size: 15
+Depends: hello (= 1.0-1)
+Section: debug
+Priority: optional
+Description: debug symbols for hello
+Build-Ids: 48fca1cc6eb146b6a7fe29428468da732c39f7d0
