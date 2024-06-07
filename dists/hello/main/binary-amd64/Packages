@@ -1,0 +1,17 @@
+Package: hello
+Version: 1.0-1
+Architecture: amd64
+Maintainer: unknown <xiaozhan.li.cn@windriver.com>
+Installed-Size: 28
+Depends: libc6 (>= 2.34)
+Homepage: <insert the upstream URL, if relevant>
+Priority: optional
+Section: unknown
+Filename: pool/main/h/hello/hello_1.0-1_amd64.deb
+Size: 4132
+SHA256: 10b52789ec9688870d4a5b8feab3b39424ac159ea2d0d96d703ef0e415b84c1d
+SHA1: cbff161b9407ab16ee6e6fd5e80cd376197864e4
+MD5sum: 7c951dd51f9c7f0c6778416960008fcf
+Description: <insert up to 60 chars description>
+ <Insert long description, indented with spaces.>
+

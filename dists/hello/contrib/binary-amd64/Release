@@ -1,0 +1,5 @@
+Component: contrib
+Origin: bookworm
+Label: hello
+Architecture: amd64
+Description: This is a test hello

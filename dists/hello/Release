@@ -1,0 +1,64 @@
+Origin: bookworm
+Label: hello
+Codename: hello
+Date: Fri, 07 Jun 2024 08:51:45 UTC
+Architectures: amd64
+Components: main contrib non-free
+Description: This is a test hello
+MD5Sum:
+ bb6a27fc1841329cd360752ca02aa9c8 552 main/binary-amd64/Packages
+ b8857ab931e6886d6ac55afcee311fcc 410 main/binary-amd64/Packages.gz
+ 598bef718231c606e1d4916618f673c1 100 main/binary-amd64/Release
+ d41d8cd98f00b204e9800998ecf8427e 0 main/source/Sources
+ 7029066c27ac6f5ef18d660d5741979a 20 main/source/Sources.gz
+ 67e429e9c45bd62938f38e5715e4c834 101 main/source/Release
+ d41d8cd98f00b204e9800998ecf8427e 0 contrib/binary-amd64/Packages
+ 7029066c27ac6f5ef18d660d5741979a 20 contrib/binary-amd64/Packages.gz
+ 2980a86811ec685ce4a895c6bd477e53 103 contrib/binary-amd64/Release
+ d41d8cd98f00b204e9800998ecf8427e 0 contrib/source/Sources
+ 7029066c27ac6f5ef18d660d5741979a 20 contrib/source/Sources.gz
+ 7a0e0d5d7752d74e7dea02a1f0001a01 104 contrib/source/Release
+ d41d8cd98f00b204e9800998ecf8427e 0 non-free/binary-amd64/Packages
+ 7029066c27ac6f5ef18d660d5741979a 20 non-free/binary-amd64/Packages.gz
+ 4d4a1ec3865466663d03fba482cae9a2 104 non-free/binary-amd64/Release
+ d41d8cd98f00b204e9800998ecf8427e 0 non-free/source/Sources
+ 7029066c27ac6f5ef18d660d5741979a 20 non-free/source/Sources.gz
+ df176fe560e1692d8fc5c94c1f15ab0d 105 non-free/source/Release
+SHA1:
+ 7c3e226540a6c9c526d12e75e39a8a6b1236b912 552 main/binary-amd64/Packages
+ 9de272354cb466566b60b17dc19f4e81586f1058 410 main/binary-amd64/Packages.gz
+ 9f7102db4e5b22647e184cd24ea176757c768f9a 100 main/binary-amd64/Release
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 0 main/source/Sources
+ 46c6643f07aa7f6bfe7118de926b86defc5087c4 20 main/source/Sources.gz
+ e55f535879574068c764c9e183159b09a0415608 101 main/source/Release
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 0 contrib/binary-amd64/Packages
+ 46c6643f07aa7f6bfe7118de926b86defc5087c4 20 contrib/binary-amd64/Packages.gz
+ 5010184c8ff58983b2e279ec6e32517d86a60704 103 contrib/binary-amd64/Release
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 0 contrib/source/Sources
+ 46c6643f07aa7f6bfe7118de926b86defc5087c4 20 contrib/source/Sources.gz
+ c1fe2911ae779b228bffbf8633586a580b4a01ff 104 contrib/source/Release
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 0 non-free/binary-amd64/Packages
+ 46c6643f07aa7f6bfe7118de926b86defc5087c4 20 non-free/binary-amd64/Packages.gz
+ d4556ad1fd31526adc33a9418f78437f22003506 104 non-free/binary-amd64/Release
+ da39a3ee5e6b4b0d3255bfef95601890afd80709 0 non-free/source/Sources
+ 46c6643f07aa7f6bfe7118de926b86defc5087c4 20 non-free/source/Sources.gz
+ 37918640dc4c5a49f5e72c2476339a3aa5f1c5c1 105 non-free/source/Release
+SHA256:
+ 88c19579d02346c4565902ada89cf61d01039fc2fdf7e40cc3df3b862f58f1e4 552 main/binary-amd64/Packages
+ ed745bf757d656aa7b59939959b7fe2a4d9e20ca67bf11a84546b897be7e926b 410 main/binary-amd64/Packages.gz
+ f399bfd0703b3bc6aeda74b4aeddbb18931e3d8c39531c49c6b21a25953e7449 100 main/binary-amd64/Release
+ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0 main/source/Sources
+ 59869db34853933b239f1e2219cf7d431da006aa919635478511fabbfc8849d2 20 main/source/Sources.gz
+ 3f2de8dab1ca487f6e90781ae1e7fd62fcf75e699f1cacff4c187d943c882d31 101 main/source/Release
+ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0 contrib/binary-amd64/Packages
+ 59869db34853933b239f1e2219cf7d431da006aa919635478511fabbfc8849d2 20 contrib/binary-amd64/Packages.gz
+ 98aa8713c7ded5230afe19facae89d4e499ca3b778483afb6166559d69fd63a9 103 contrib/binary-amd64/Release
+ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0 contrib/source/Sources
+ 59869db34853933b239f1e2219cf7d431da006aa919635478511fabbfc8849d2 20 contrib/source/Sources.gz
+ 863e04e9022dfdadd59dc3f6651ea30c8021f6c92e5abbcd7f107ac59a62da55 104 contrib/source/Release
+ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0 non-free/binary-amd64/Packages
+ 59869db34853933b239f1e2219cf7d431da006aa919635478511fabbfc8849d2 20 non-free/binary-amd64/Packages.gz
+ 849586345fe5853515f108d55710f442b30164caddca63f4926038887182d8b5 104 non-free/binary-amd64/Release
+ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0 non-free/source/Sources
+ 59869db34853933b239f1e2219cf7d431da006aa919635478511fabbfc8849d2 20 non-free/source/Sources.gz
+ fb4a3d042dccdaa6929327f206bdabeafd01b7669bebe19c9ff91e054ce9e96f 105 non-free/source/Release
